@@ -35,25 +35,97 @@
                 </div>
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
-                    <p>Hello I am Abdullah Musharaf, I am a junior computer science student</p>
+                    <p>Fully committed to the philosophy of life-long learning, I’m a full stack developer with a deep passion for JavaScript, React and all things web development. The unique combination of creativity, logic, technology and never running out of new things to discover, drives my excitement and passion for web development. When I’m not at my computer I like to spend my time reading, keeping fit and playing guitar.</p>
 
                     <div class="tab-titles">
-                        <p class="tab-links active-link">Skills</p>
-                        <p class="tab-links">Experience</p>
-                        <p class="tab-links">Projects</p>
+                        <p class="tab-links active-link"onclick="opentab('skills',event)">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience',event)">Experience</p>
+                        <p class="tab-links" onclick="opentab('education',event)">Education</p>
 
                     </div>
-                    <div class="tab-contents">
+                    <div class="tab-contents active-tab" id="skills">
                         <ul>
                             <li><span>C++</span><br> c++ 17 ver</li>
                             <li><span>Python</span><br> Flask</li>
                             
                         </ul>
                     </div>
+
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>SWE Fellow</span><br>Headstarter AI</li>                        
+                        </ul>
+                    </div>
+
+                    <div class="tab-contents" id="education">
+                        <ul>
+                            <li><span>2022- current </span><br>BSCS<br>Information Technology University</li>                        
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+    <div id="projects">
+        <div class="container">
+            <h1 class="section-title">Projects</h1>
+            <div class="project">
+                <div class="project-text">
+                    <h2>Code Flash Academy</h2>
+                    <p>Full stack social media application built with React, Node.js, Express.js, MongoDB, Socket.io, and AWS S3.</p>
+                    <a href="#" class="btn">Live App</a>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                <div class="project-media">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/93KSNyOe7zo" title="YouTube video player"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+
+            <div class="project reverse">
+                <div class="project-text">
+                    <h2>Health Care Chatbot</h2>
+                    <p>Instant messaging application built with Next.JS, Firebase, and Chakra UI.</p>
+                    <a href="#" class="btn">Live App</a>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/me.jpg" alt="Project Image">
+
                 </div>
             </div>
         </div>
     </div>
+
+        <div id="certifications">
+            <h2>Certifications</h2>
+            <div class="cert-tabs">
+                <button class="tab-link active" onclick="openCertification(event, 'cert1')">Certification 1</button>
+                <button class="tab-link" onclick="openCertification(event, 'cert2')">Certification 2</button>
+                <button class="tab-link" onclick="openCertification(event, 'cert3')">Certification 3</button>
+            </div>
+
+            <div id="cert1" class="cert-content active">
+                <h3>Certification 1 Title</h3>
+                <p>Description or details about Certification 1.</p>
+            </div>
+
+            <div id="cert2" class="cert-content">
+                <h3>Certification 2 Title</h3>
+                <p>Description or details about Certification 2.</p>
+            </div>
+
+            <div id="cert3" class="cert-content">
+                <h3>Certification 3 Title</h3>
+                <p>Description or details about Certification 3.</p>
+            </div>
+        </div>
+
+
+    </div>
+
     
     <script src="script.js"></script>
 </body>

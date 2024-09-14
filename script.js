@@ -109,3 +109,43 @@ window.onload = function() {
     // Start the animation
     tick();
 }
+
+///// tab element for about section //////
+
+var tablinks = document.getElementsByClassName("tab-links");
+var tabcontents = document.getElementsByClassName("tab-contents");
+
+function opentab(tabname,event){
+    for(tablink of tablinks){
+        tablink.classList.remove("active-link");
+    }
+    for(tabcontent of tabcontents){
+        tabcontent.classList.remove("active-tab");
+    }
+    event.currentTarget.classList.add("active-link");
+    document.getElementById(tabname).classList.add("active-tab");
+}
+function openCertification(evt, certId) {
+    var i, certContent, tabLinks;
+
+    // Hide all cert content
+    certContent = document.getElementsByClassName("cert-content");
+    for (i = 0; i < certContent.length; i++) {
+        certContent[i].style.display = "none";
+        certContent[i].classList.remove("active");
+    }
+
+    // Remove the active class from all tab links
+    tabLinks = document.getElementsByClassName("tab-link");
+    for (i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].classList.remove("active");
+    }
+
+    // Show the current cert content, and add an "active" class to the clicked tab
+    document.getElementById(certId).style.display = "block";
+    document.getElementById(certId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+// Initially display the first certification
+document.getElementById("cert1").style.display = "block";
