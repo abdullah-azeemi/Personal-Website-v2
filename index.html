@@ -14,12 +14,11 @@
         <canvas id="canvas"></canvas>
         <div class="container">
             <nav>
-                <img src="images/logo.png" class="logo">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Experience</a></li>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#header" id="home-link">Home</a></li>
+                    <li><a href="#projects" id="projects-link">Projects</a></li>
+                    <li><a href="#certifications" id="certifications-link">Certifications</a></li>
+                    <li><a href="#footer" id="contact-link">Contact</a></li>
                 </ul>
             </nav>
             <div class="header-text">
@@ -27,6 +26,15 @@
                 <h1>Hi, I'm <span>Abdullah Musharaf</span></h1>
             </div>
         </div>
+        <div class="language-switcher">
+            <button class="lang-btn" onclick="toggleLangMenu()">English <i class="fas fa-caret-down"></i></button>
+            <ul id="lang-menu" class="lang-menu">
+                <li><button onclick="setLanguage('en')">English</button></li>
+                <li><button onclick="setLanguage('es')">Español</button></li>
+                <li><button onclick="setLanguage('fr')">Français</button></li>
+            </ul>
+        </div>
+
     </div>
     
     <div id="body">
@@ -37,7 +45,7 @@
                 </div>
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
-                    <p>Fully committed to the philosophy of life-long learning, I’m a full stack developer with a deep passion for JavaScript, React and all things web development. The unique combination of creativity, logic, technology and never running out of new things to discover, drives my excitement and passion for web development. When I’m not at my computer I like to spend my time reading, keeping fit and playing guitar.</p>
+                    <p>I am a junior computer science student with a strong passion for software development and machine learning. My experience includes developing web applications using Flask and integrating AI APIs to enhance functionality. My background in coding competitions has sharpened my problem-solving skills, and I am enthusiastic about contributing to innovative projects while continuing to grow my expertise in Python development.</p>
 
                     <div class="tab-titles">
                         <p class="tab-links active-link"onclick="opentab('skills',event)">Skills</p>
@@ -47,11 +55,11 @@
                     </div>
                     <div class="tab-contents active-tab" id="skills">
                         <ul>
-                            <li><span>C++</span><br> c++ 17 ver</li>
-                            <li><span>Python</span><br> Flask</li>
-                            
+                            <li><span>Hardskills</span><br> C++ <br> Python <br> Javascript <br> Backend Development</li>
+                            <li><span>Softskills</span><br> Teamwork <br> Collaboration <br> Research</li>
                         </ul>
                     </div>
+                    
 
                     <div class="tab-contents" id="experience">
                         <ul>
@@ -69,44 +77,60 @@
         </div>
 
         <!-- Projects Section -->
-    <div id="projects">
-        <div class="container">
-            <h1 class="section-title">Projects</h1>
-            <div class="project">
-                <div class="project-text">
-                    <h2>Code Flash Academy</h2>
-                    <p>Full stack social media application built with React, Node.js, Express.js, MongoDB, Socket.io, and AWS S3.</p>
-                    <a href="#" class="btn">Live App</a>
-                    <a href="#" class="btn">Learn More</a>
+        <div id="projects">
+            <div class="container">
+                <h1 class="section-title">Projects</h1>
+                
+                <div class="project">
+                    <div class="project-text">
+                        <h2>Code Flash Academy</h2>
+                        <p>Developed and optimized prompts for the Gemini API to generate real-time flashcards with a Flask-based backend, integrating Stripe for secure payment processing.</p>
+                        <a href="https://github.com/abdullah-azeemi/AI_Flashcards" target="_blank" class="btn">Learn More</a>
+                    </div>
+        
+                    <div class="project-media">
+                        <img src="images/p1.jpeg" alt="Project Image">
+                        <video class="active" controls>
+                            <source src="https://www.youtube.com/93KSNyOe7zo" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <div class="media-nav">
+                            <span class="dot active" onclick="showMedia(this, 'video')"></span>
+                            <span class="dot" onclick="showMedia(this, 'image')"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="project-media">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/93KSNyOe7zo" title="YouTube video player"
-                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-
-
-            <div class="project reverse">
-                <div class="project-text">
-                    <h2>Health Care Chatbot</h2>
-                    <p>Instant messaging application built with Next.JS, Firebase, and Chakra UI.</p>
-                    <a href="#" class="btn">Live App</a>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-                <div class="project-media">
-                    <img src="images/me.jpg" alt="Project Image">
-
+        
+                <div class="project reverse">
+                    <div class="project-text">
+                        <h2>Health Care Chatbot</h2>
+                        <p>An AI powered Healthcare Chatbot that can provide patients with disease information , symptoms and possible treatments.</p>
+                        <a href="https://github.com/Nabeel849/AI-Healthcare-Chatbot" target="_blank" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="project-media">
+                        <img src="images/p2.jpg" alt="Project Image">
+                        <video class="active" controls>
+                            <source src="https://www.youtube.com/embed/cw6CjIObcxY" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <div class="media-nav">
+                            <span class="dot active" onclick="showMedia(this, 'video')"></span>
+                            <span class="dot" onclick="showMedia(this, 'image')"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        
 
     <div id="certifications">
         <h2>Certifications</h2>
         <div class="cert-tabs">
             <button class="tab-link active" onclick="openCertification(event, 'cert1')">Certification 1</button>
             <button class="tab-link" onclick="openCertification(event, 'cert2')">Certification 2</button>
-            <button class="tab-link" onclick="openCertification(event, 'cert3')">Certification 3</button>
         </div>
     
         <div id="cert1" class="cert-content active">
@@ -117,17 +141,10 @@
     
         <div id="cert2" class="cert-content">
             <div class="cert-item">
-                <img src="path/to/your/image2.jpg" alt="Certification 2">
-                <p>Brief description for Certification 2.</p>
+                <img src="images/certificate2.png" alt="Certification 2">
             </div>
         </div>
     
-        <div id="cert3" class="cert-content">
-            <div class="cert-item">
-                <img src="path/to/your/image3.jpg" alt="Certification 3">
-                <p>Brief description for Certification 3.</p>
-            </div>
-        </div>
     </div>
 
     <div id="embedded-links">
@@ -137,6 +154,12 @@
             <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7228780488050540544" height="959" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
         </div>
     </div>
+
+    <div id="get-connected">
+        <h2>Let's get connected !!</h2>
+        <hr>
+        <a href="https://www.linkedin.com/in/abdullah-musharaf-6179a6125/" class="connect-btn" target="_blank">Take me to LinkedIn</a>
+    </div>
     
 
         <div id="footer">
@@ -145,7 +168,7 @@
                 <li><a href="https://www.youtube.com/channel/UCLIP58jdIfW914319BVMzJg" class="fab fa-youtube" target="_blank"><span class="label"> YouTube</span></a></li>
                 <li><a href="https://www.linkedin.com/in/abdullah-musharaf-6179a6125/" class="fab fa-linkedin" target="_blank"><span class="label"> LinkedIn</span></a></li>
                 <li><a href="https://github.com/abdullah-azeemi" class="fab fa-github" target="_blank"><span class="label"> GitHub</span></a></li>
-                <li><a href="mailto:abdullahmusharaf200@gmail.com?cc=cc@example.com&bcc=bcc@example.com&subject=Hello%20there&body=I%20am%20interested%20in%20your%20work." class="fas fa-envelope" target="_blank"><span class="label"> Email</span></a></li>
+                <li><a href="https://abdullah-58781.github.io/Personal-Website/" target="_blank"><span class="label"> Previous Version</span></a></li>
                     
             </ul>
             <ul class="copyright">
@@ -153,8 +176,6 @@
             </ul>
         </div>
         
-			
-		</section>
 
     </div>
 

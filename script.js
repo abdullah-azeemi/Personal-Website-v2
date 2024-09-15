@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function() { 
     console.log("Script loaded and DOM is ready!");
 
     var canvas = document.getElementById("canvas");
@@ -110,10 +110,6 @@ window.onload = function() {
     tick();
 }
 
-///// tab element for about section //////
-
-var tablinks = document.getElementsByClassName("tab-links");
-var tabcontents = document.getElementsByClassName("tab-contents");
 
 function opentab(tabname,event){
     for(tablink of tablinks){
@@ -128,24 +124,119 @@ function opentab(tabname,event){
 function openCertification(evt, certId) {
     var i, certContent, tabLinks;
 
-    // Hide all cert content
     certContent = document.getElementsByClassName("cert-content");
     for (i = 0; i < certContent.length; i++) {
         certContent[i].style.display = "none";
         certContent[i].classList.remove("active");
     }
 
-    // Remove the active class from all tab links
     tabLinks = document.getElementsByClassName("tab-link");
     for (i = 0; i < tabLinks.length; i++) {
         tabLinks[i].classList.remove("active");
     }
-
-    // Show the current cert content, and add an "active" class to the clicked tab
     document.getElementById(certId).style.display = "block";
     document.getElementById(certId).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
 
-// Initially display the first certification
 document.getElementById("cert1").style.display = "block";
+
+function showMedia(dot, mediaType) {
+    const projectMedia = dot.closest('.project-media');
+
+    const dots = projectMedia.querySelectorAll('.dot');
+    dots.forEach(dot => dot.classList.remove('active'));
+    dot.classList.add('active');
+
+    const video = projectMedia.querySelector('video');
+    const image = projectMedia.querySelector('img');
+
+    if (mediaType === 'video') {
+        video.classList.add('active');
+        image.classList.remove('active');
+    } else {
+        image.classList.add('active');
+        video.classList.remove('active');
+    }
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const offset = -50; 
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY + offset;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Language data for dynamic text replacement
+const languageData = {
+    en: {
+        home: "Home",
+        projects: "Projects",
+        certifications: "Certifications",
+        contact: "Contact",
+        welcomeMessage: "Hi, I'm Abdullah Musharaf",
+        aboutTitle: "About Me",
+        aboutText: "I am a junior computer science student with a strong passion for software development and machine learning. My experience includes developing web applications using Flask and integrating AI APIs to enhance functionality. My background in coding competitions has sharpened my problem-solving skills, and I am enthusiastic about contributing to innovative projects while continuing to grow my expertise in Python development."
+    },
+    es: {
+        home: "Inicio",
+        projects: "Proyectos",
+        certifications: "Certificaciones",
+        contact: "Contacto",
+        welcomeMessage: "Hola, soy Abdullah Musharaf",
+        aboutTitle: "Sobre mí",
+        aboutText: "Soy un estudiante de informática junior con una gran pasión por el desarrollo de software y el aprendizaje automático. Mi experiencia incluye el desarrollo de aplicaciones web utilizando Flask e integración de APIs de IA para mejorar la funcionalidad. Mi experiencia en competiciones de codificación ha agudizado mis habilidades para resolver problemas, y estoy entusiasmado por contribuir a proyectos innovadores mientras continúo desarrollando mi experiencia en el desarrollo en Python."
+    },
+    fr: {
+        home: "Accueil",
+        projects: "Projets",
+        certifications: "Certifications",
+        contact: "Contact",
+        welcomeMessage: "Salut, je suis Abdullah Musharaf",
+        aboutTitle: "À propos de moi",
+        aboutText: "Je suis un étudiant en informatique de niveau junior avec une forte passion pour le développement logiciel et l'apprentissage automatique. Mon expérience inclut le développement d'applications web avec Flask et l'intégration d'APIs d'IA pour améliorer les fonctionnalités. Mon parcours en compétitions de codage a aiguisé mes compétences en résolution de problèmes, et je suis enthousiaste à l'idée de contribuer à des projets innovants tout en continuant à développer mon expertise en développement Python."
+    }
+};
+
+function toggleLangMenu() {
+    document.getElementById('lang-menu').classList.toggle('show');
+}
+
+// Function to change the language and update text dynamically
+function setLanguage(lang) {
+    document.getElementById('home-link').textContent = languageData[lang].home;
+    document.getElementById('projects-link').textContent = languageData[lang].projects;
+    document.getElementById('certifications-link').textContent = languageData[lang].certifications;
+    document.getElementById('contact-link').textContent = languageData[lang].contact;
+    document.querySelector('.header-text h1').textContent = languageData[lang].welcomeMessage;
+    document.querySelector('.sub-title').textContent = languageData[lang].aboutTitle;
+    document.querySelector('.about-col-2 p').textContent = languageData[lang].aboutText;
+
+    document.querySelector('.lang-btn').innerHTML = `${languageData[lang].home} <i class="fas fa-caret-down"></i>`;
+
+    toggleLangMenu();
+}
+
+
+window.onload = function() {
+    setLanguage('en');
+};
+
+window.onclick = function(event) {
+    if (!event.target.matches('.lang-btn')) {
+        const dropdowns = document.getElementsByClassName("lang-menu");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+};
