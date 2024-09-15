@@ -323,11 +323,15 @@ nav ul li a:hover::after {
     }
 }
 
-/* Certification Section */
 #certifications {
     padding: 60px 0;
-    background-color: #fff; /* Adjust based on your design */
+    background-color: #fff;
     text-align: center;
+}
+#certifications h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #ff004f;
 }
 
 .cert-tabs {
@@ -351,14 +355,47 @@ nav ul li a:hover::after {
 
 .cert-content {
     display: none;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .cert-content.active {
     display: block;
+}
+
+.cert-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.cert-item img {
+    max-width: 600px;
+    border-radius: 2%;
+    height: auto;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.cert-item p {
+    margin: 0;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .cert-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cert-item img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
 }
 
 /* Responsive Design */
@@ -370,5 +407,79 @@ nav ul li a:hover::after {
 
     .tab-link {
         margin-bottom: 10px;
+    }
+}
+#footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #141414;
+    color: #fff;
+}
+
+#footer .icons {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+#footer .icons li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+#footer .icons a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px; 
+    transition: color 0.3s ease;
+}
+
+#footer .icons a:hover {
+    color: #ff004f; 
+}
+
+#footer .copyright {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+#footer .copyright li {
+    display: inline-block;
+    margin: 0 10px;
+}
+#embedded-links {
+    padding: 60px 0;
+    background-color:#232323;
+    text-align: center;
+}
+
+#embedded-links h2 {
+    color: #ff004f;
+}
+
+.embed-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.embed-container iframe {
+    border: none;
+    width: 100%;
+    max-width: 500px;
+    height: 300px; 
+}
+
+@media (max-width: 768px) {
+    .embed-container {
+        flex-direction: column;
+    }
+
+    .embed-container iframe {
+        height: 400px; 
+        max-width: none;
     }
 }

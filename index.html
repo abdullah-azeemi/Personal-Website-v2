@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>
     <div id="header">
@@ -99,30 +101,60 @@
         </div>
     </div>
 
-        <div id="certifications">
-            <h2>Certifications</h2>
-            <div class="cert-tabs">
-                <button class="tab-link active" onclick="openCertification(event, 'cert1')">Certification 1</button>
-                <button class="tab-link" onclick="openCertification(event, 'cert2')">Certification 2</button>
-                <button class="tab-link" onclick="openCertification(event, 'cert3')">Certification 3</button>
-            </div>
-
-            <div id="cert1" class="cert-content active">
-                <h3>Certification 1 Title</h3>
-                <p>Description or details about Certification 1.</p>
-            </div>
-
-            <div id="cert2" class="cert-content">
-                <h3>Certification 2 Title</h3>
-                <p>Description or details about Certification 2.</p>
-            </div>
-
-            <div id="cert3" class="cert-content">
-                <h3>Certification 3 Title</h3>
-                <p>Description or details about Certification 3.</p>
+    <div id="certifications">
+        <h2>Certifications</h2>
+        <div class="cert-tabs">
+            <button class="tab-link active" onclick="openCertification(event, 'cert1')">Certification 1</button>
+            <button class="tab-link" onclick="openCertification(event, 'cert2')">Certification 2</button>
+            <button class="tab-link" onclick="openCertification(event, 'cert3')">Certification 3</button>
+        </div>
+    
+        <div id="cert1" class="cert-content active">
+            <div class="cert-item">
+                <img src="images/certificate1.png" alt="Certification 1">
             </div>
         </div>
+    
+        <div id="cert2" class="cert-content">
+            <div class="cert-item">
+                <img src="path/to/your/image2.jpg" alt="Certification 2">
+                <p>Brief description for Certification 2.</p>
+            </div>
+        </div>
+    
+        <div id="cert3" class="cert-content">
+            <div class="cert-item">
+                <img src="path/to/your/image3.jpg" alt="Certification 3">
+                <p>Brief description for Certification 3.</p>
+            </div>
+        </div>
+    </div>
 
+    <div id="embedded-links">
+        <h2>Social Media Feed</h2>
+        <div class="embed-container">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7239699319786795008" height="620" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7228780488050540544" height="959" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+        </div>
+    </div>
+    
+
+        <div id="footer">
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="fab fa-twitter" target="_blank"><span class="label"> Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/channel/UCLIP58jdIfW914319BVMzJg" class="fab fa-youtube" target="_blank"><span class="label"> YouTube</span></a></li>
+                <li><a href="https://www.linkedin.com/in/abdullah-musharaf-6179a6125/" class="fab fa-linkedin" target="_blank"><span class="label"> LinkedIn</span></a></li>
+                <li><a href="https://github.com/abdullah-azeemi" class="fab fa-github" target="_blank"><span class="label"> GitHub</span></a></li>
+                <li><a href="mailto:abdullahmusharaf200@gmail.com?cc=cc@example.com&bcc=bcc@example.com&subject=Hello%20there&body=I%20am%20interested%20in%20your%20work." class="fas fa-envelope" target="_blank"><span class="label"> Email</span></a></li>
+                    
+            </ul>
+            <ul class="copyright">
+                <li>&copy; 2024 Abdullah Musharaf</li>
+            </ul>
+        </div>
+        
+			
+		</section>
 
     </div>
 
