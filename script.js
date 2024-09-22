@@ -1,6 +1,9 @@
 window.onload = function() { 
     console.log("Script loaded and DOM is ready!");
 
+    populatePortfolio(portfolioData);
+    setLanguage('en');
+
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -240,3 +243,98 @@ window.onclick = function(event) {
         }
     }
 };
+const portfolioData = {
+    name: "Abdullah Musharaf",
+    title: "Junior Computer Science Student",
+    bio: "I am a junior computer science student with a strong passion for software development and machine learning. My experience includes developing web applications using Flask and integrating AI APIs to enhance functionality. My background in coding competitions has sharpened my problem-solving skills, and I am enthusiastic about contributing to innovative projects while continuing to grow my expertise in Python development.",
+    skills: {
+        hardskills: ["C++", "Python", "JavaScript", "Backend Development"],
+        softskills: ["Teamwork", "Collaboration", "Research"]
+    },
+    experience: [{
+        role: "SWE Fellow",
+        company: "Headstarter AI"
+    }],
+    education: [{
+        year: "2022 - current",
+        degree: "BSCS",
+        institution: "Information Technology University"
+    }],
+    projects: [{
+        title: "Code Flash Academy",
+        description: "Developed and optimized prompts for the Gemini API to generate real-time flashcards with a Flask-based backend, integrating Stripe for secure payment processing.",
+        link: "https://github.com/abdullah-azeemi/AI_Flashcards"
+    }, {
+        title: "Health Care Chatbot",
+        description: "An AI-powered Healthcare Chatbot that provides patients with disease information, symptoms, and possible treatments.",
+        link: "https://github.com/Nabeel849/AI-Healthcare-Chatbot"
+    }],
+    certifications: [{
+        title: "Certification 1",
+        img: "images/certificate1.png"
+    }, {
+        title: "Certification 2",
+        img: "images/certificate2.png"
+    }],
+    socialLinks: [{
+        name: "LinkedIn",
+        link: "https://www.linkedin.com/in/abdullah-musharaf-6179a6125/"
+    }, {
+        name: "GitHub",
+        link: "https://github.com/abdullah-azeemi"
+    }]
+};
+
+function populatePortfolio(data) {
+    // populating the header here
+    document.querySelector('.header-text h1').innerHTML = `Hi, I'am <span>${data.name}</span>`;
+    document.querySelector('.header-text p').innerHTML = data.title;
+
+    // Populate About section
+    document.querySelector('.about-col-2 p').textContent = data.bio;
+
+    // // Populating skills
+    // const skillsList = document.getElementById('skills').querySelector('ul');
+    // skillsList.innerHTML = `
+    //     <li><span>Hardskills</span><br> ${data.skills.hardskills.join('<br>')}</li>
+    //     <li><span>Softskills</span><br> ${data.skills.softskills.join('<br>')}</li>
+    // `;
+    // // Populate Experience
+    // const experienceList = document.getElementById('experience').querySelector('ul');
+    // experienceList.innerHTML = data.experience.map(exp => `<li><span>${exp.role}</span><br>${exp.company}</li>`).join('');
+
+    // // Populate Education
+    // const educationList = document.getElementById('education').querySelector('ul');
+    // educationList.innerHTML = data.education.map(edu => `<li><span>${edu.year}</span><br>${edu.degree}<br>${edu.institution}</li>`).join('');
+
+    // Populate Projects
+    const projectsSection = document.getElementById('projects').querySelector('.container');
+    data.projects.forEach(project => {
+        const projectHTML = `
+        <div class="project">
+            <div class="project-text">
+                <h2>${project.title}</h2>
+                <p>${project.description}</p>
+                <a href="${project.link}" target="_blank" class="btn">Learn More</a>
+            </div>
+            <div class="project-media">
+                <img src="images/p1.jpeg" alt="Project Image">
+                <video class="active" controls>
+                    <source src="https://www.youtube.com/93KSNyOe7zo" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>`;
+        projectsSection.insertAdjacentHTML('beforeend', projectHTML);
+    });
+
+    const certTabs = document.querySelector('.cert-tabs');
+    const certContents = document.querySelectorAll('.cert-content');
+    data.certifications.forEach((cert, index) => {
+        certTabs.innerHTML += `<button class="tab-link ${index === 0 ? 'active' : ''}" onclick="openCertification(event, 'cert${index+1}')">${cert.title}</button>`;
+        certContents[index].querySelector('img').src = cert.img;
+    });
+
+    const footerIcons = document.querySelector('#footer .icons');
+    footerIcons.innerHTML = data.socialLinks.map(link => `<li><a href="${link.link}" target="_blank" class="fab fa-${link.name.toLowerCase()}"></a></li>`).join('');
+}
