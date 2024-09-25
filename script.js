@@ -151,17 +151,18 @@ function showMedia(dot, mediaType) {
     dots.forEach(dot => dot.classList.remove('active'));
     dot.classList.add('active');
 
-    const video = projectMedia.querySelector('video');
-    const image = projectMedia.querySelector('img');
+    const iframe = projectMedia.querySelector('iframe');
+    const img = projectMedia.querySelector('img');
 
     if (mediaType === 'video') {
-        video.classList.add('active');
-        image.classList.remove('active');
+        iframe.classList.add('active');
+        img.classList.remove('active');
     } else {
-        image.classList.add('active');
-        video.classList.remove('active');
+        img.classList.add('active');
+        iframe.classList.remove('active');
     }
 }
+
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

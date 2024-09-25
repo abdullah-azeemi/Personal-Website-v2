@@ -619,3 +619,12 @@ nav ul li a:hover::after {
 .show {
     display: block;
 }
+.project-media iframe, .project-media img {
+    width: 100%;
+    border-radius: 10px;
+    display: none; 
+}
+
+.project-media iframe.active, .project-media img.active {
+    display: block; 
+}
