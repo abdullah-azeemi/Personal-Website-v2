@@ -1,184 +1,3 @@
-window.onload = function() { 
-    console.log("Script loaded and DOM is ready!");
-
-    populatePortfolio(portfolioData);
-    setLanguage('en');
-
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    var stars = [], 
-        FPS = 60, 
-        starCount = 100, 
-        mouse = { x: 0, y: 0 };
-
-    // Create stars
-    for (var i = 0; i < starCount; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 1 + 1,
-            vx: Math.floor(Math.random() * 50) - 25,
-            vy: Math.floor(Math.random() * 50) - 25
-        });
-    }
-
-    // Draw the stars and the lines between them, and the mouse circle
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-        ctx.globalCompositeOperation = "lighter";
-
-        // Draw stars
-        for (var i = 0; i < stars.length; i++) {
-            var s = stars[i];
-            ctx.fillStyle = "#fff";
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.strokeStyle = 'black';
-            ctx.stroke();
-        }
-
-        // Draw lines between stars and mouse if close enough
-        ctx.beginPath();
-        for (var i = 0; i < stars.length; i++) {
-            var starI = stars[i];
-            ctx.moveTo(starI.x, starI.y); 
-            if (distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
-            for (var j = 0; j < stars.length; j++) {
-                var starII = stars[j];
-                if (distance(starI, starII) < 150) {
-                    ctx.lineTo(starII.x, starII.y); 
-                }
-            }
-        }
-        ctx.lineWidth = 0.05;
-        ctx.strokeStyle = 'white';
-        ctx.stroke();
-
-        // Draw the circle at the mouse position
-        ctx.beginPath();
-        ctx.fillStyle = 'red'; // Color of the mouse-following point
-        ctx.arc(mouse.x, mouse.y, 5, 0, 2 * Math.PI); // 5px radius circle
-        ctx.fill();
-    }
-
-    // Calculate the distance between two points
-    function distance(point1, point2) {
-        var xs = point2.x - point1.x;
-        var ys = point2.y - point1.y;
-        return Math.sqrt(xs * xs + ys * ys);
-    }
-
-    // Update star positions
-    function update() {
-        for (var i = 0; i < stars.length; i++) {
-            var s = stars[i];
-            s.x += s.vx / FPS;
-            s.y += s.vy / FPS;
-
-            // Reverse direction if out of bounds
-            if (s.x < 0 || s.x > canvas.width) s.vx = -s.vx;
-            if (s.y < 0 || s.y > canvas.height) s.vy = -s.vy;
-        }
-    }
-
-    // Handle mouse move events to draw lines from the stars to the mouse
-    canvas.addEventListener('mousemove', function(e) {
-        // Get the bounding rectangle of the canvas
-        var rect = canvas.getBoundingClientRect();
-        
-        // Adjust the mouse position relative to the canvas
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-    });
-
-    // Redraw and update on each frame
-    function tick() {
-        draw();
-        update();
-        requestAnimationFrame(tick);
-    }
-
-    // Adjust canvas size on window resize
-    window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
-    // Start the animation
-    tick();
-}
-
-
-function opentab(tabname,event){
-    for(tablink of tablinks){
-        tablink.classList.remove("active-link");
-    }
-    for(tabcontent of tabcontents){
-        tabcontent.classList.remove("active-tab");
-    }
-    event.currentTarget.classList.add("active-link");
-    document.getElementById(tabname).classList.add("active-tab");
-}
-function openCertification(evt, certId) {
-    var i, certContent, tabLinks;
-
-    certContent = document.getElementsByClassName("cert-content");
-    for (i = 0; i < certContent.length; i++) {
-        certContent[i].style.display = "none";
-        certContent[i].classList.remove("active");
-    }
-
-    tabLinks = document.getElementsByClassName("tab-link");
-    for (i = 0; i < tabLinks.length; i++) {
-        tabLinks[i].classList.remove("active");
-    }
-    document.getElementById(certId).style.display = "block";
-    document.getElementById(certId).classList.add("active");
-    evt.currentTarget.classList.add("active");
-}
-
-document.getElementById("cert1").style.display = "block";
-
-function showMedia(dot, mediaType) {
-    const projectMedia = dot.closest('.project-media');
-
-    const dots = projectMedia.querySelectorAll('.dot');
-    dots.forEach(dot => dot.classList.remove('active'));
-    dot.classList.add('active');
-
-    const iframe = projectMedia.querySelector('iframe');
-    const img = projectMedia.querySelector('img');
-
-    if (mediaType === 'video') {
-        iframe.classList.add('active');
-        img.classList.remove('active');
-    } else {
-        img.classList.add('active');
-        iframe.classList.remove('active');
-    }
-}
-
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        const offset = -50; 
-        const targetPosition = target.getBoundingClientRect().top + window.scrollY + offset;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Language data for dynamic text replacement
 const languageData = {
     en: {
         home: "Home",
@@ -209,11 +28,137 @@ const languageData = {
     }
 };
 
+window.onload = function() {
+    console.log("Script loaded and DOM is ready!");
+    populatePortfolio(portfolioData);
+    setLanguage('en');
+
+    // Setup the canvas animation
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext('2d');
+    
+    function setupCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    setupCanvas();
+
+    var stars = [], FPS = 60, starCount = 100, mouse = { x: 0, y: 0 };
+
+    for (var i = 0; i < starCount; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1 + 1,
+            vx: Math.floor(Math.random() * 50) - 25,
+            vy: Math.floor(Math.random() * 50) - 25
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "lighter";
+
+        stars.forEach(s => {
+            ctx.fillStyle = "#fff";
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+        });
+
+        ctx.beginPath();
+        stars.forEach(starI => {
+            ctx.moveTo(starI.x, starI.y);
+            if (distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
+            stars.forEach(starII => {
+                if (distance(starI, starII) < 150) {
+                    ctx.lineTo(starII.x, starII.y);
+                }
+            });
+        });
+        ctx.lineWidth = 0.05;
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.arc(mouse.x, mouse.y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+
+    function distance(point1, point2) {
+        var xs = point2.x - point1.x;
+        var ys = point2.y - point1.y;
+        return Math.sqrt(xs * xs + ys * ys);
+    }
+
+    function update() {
+        stars.forEach(s => {
+            s.x += s.vx / FPS;
+            s.y += s.vy / FPS;
+
+            if (s.x < 0 || s.x > canvas.width) s.vx = -s.vx;
+            if (s.y < 0 || s.y > canvas.height) s.vy = -s.vy;
+        });
+    }
+
+    canvas.addEventListener('mousemove', function(e) {
+        var rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    canvas.addEventListener('touchmove', function(e) {
+        var touch = e.touches[0];
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    });
+
+    function tick() {
+        draw();
+        update();
+        requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('resize', function() {
+        setupCanvas();  // Redraw the canvas when the size changes
+    });
+
+    tick();
+};
+
+// Back to Top Button functionality
+window.onscroll = function() {
+    let backToTop = document.getElementById("back-to-top");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backToTop.classList.add("show");
+    } else {
+        backToTop.classList.remove("show");
+    }
+};
+
+document.getElementById('back-to-top').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        window.scrollTo({
+            top: target.offsetTop - 50,
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Language Dropdown Menu and Text Replacement
 function toggleLangMenu() {
     document.getElementById('lang-menu').classList.toggle('show');
 }
-
-// Function to change the language and update text dynamically
 function setLanguage(lang) {
     document.getElementById('home-link').textContent = languageData[lang].home;
     document.getElementById('projects-link').textContent = languageData[lang].projects;
@@ -222,16 +167,9 @@ function setLanguage(lang) {
     document.querySelector('.header-text h1').textContent = languageData[lang].welcomeMessage;
     document.querySelector('.sub-title').textContent = languageData[lang].aboutTitle;
     document.querySelector('.about-col-2 p').textContent = languageData[lang].aboutText;
-
     document.querySelector('.lang-btn').innerHTML = `${languageData[lang].home} <i class="fas fa-caret-down"></i>`;
-
     toggleLangMenu();
 }
-
-
-window.onload = function() {
-    setLanguage('en');
-};
 
 window.onclick = function(event) {
     if (!event.target.matches('.lang-btn')) {
@@ -244,72 +182,24 @@ window.onclick = function(event) {
         }
     }
 };
-const portfolioData = {
-    name: "Abdullah Musharaf",
-    title: "Junior Computer Science Student",
-    bio: "I am a junior computer science student with a strong passion for software development and machine learning. My experience includes developing web applications using Flask and integrating AI APIs to enhance functionality. My background in coding competitions has sharpened my problem-solving skills, and I am enthusiastic about contributing to innovative projects while continuing to grow my expertise in Python development.",
-    skills: {
-        hardskills: ["C++", "Python", "JavaScript", "Backend Development"],
-        softskills: ["Teamwork", "Collaboration", "Research"]
-    },
-    experience: [{
-        role: "SWE Fellow",
-        company: "Headstarter AI"
-    }],
-    education: [{
-        year: "2022 - current",
-        degree: "BSCS",
-        institution: "Information Technology University"
-    }],
-    projects: [{
-        title: "Code Flash Academy",
-        description: "Developed and optimized prompts for the Gemini API to generate real-time flashcards with a Flask-based backend, integrating Stripe for secure payment processing.",
-        link: "https://github.com/abdullah-azeemi/AI_Flashcards"
-    }, {
-        title: "Health Care Chatbot",
-        description: "An AI-powered Healthcare Chatbot that provides patients with disease information, symptoms, and possible treatments.",
-        link: "https://github.com/Nabeel849/AI-Healthcare-Chatbot"
-    }],
-    certifications: [{
-        title: "Certification 1",
-        img: "images/certificate1.png"
-    }, {
-        title: "Certification 2",
-        img: "images/certificate2.png"
-    }],
-    socialLinks: [{
-        name: "LinkedIn",
-        link: "https://www.linkedin.com/in/abdullah-musharaf-6179a6125/"
-    }, {
-        name: "GitHub",
-        link: "https://github.com/abdullah-azeemi"
-    }]
-};
+
+function openTab(tabName, event) {
+    const tabLinks = document.querySelectorAll('.tab-links');
+    const tabContents = document.querySelectorAll('.tab-contents');
+
+    tabLinks.forEach(tab => tab.classList.remove('active-link'));
+    tabContents.forEach(tab => tab.classList.remove('active-tab'));
+
+    event.currentTarget.classList.add('active-link');
+    document.getElementById(tabName).classList.add('active-tab');
+}
 
 function populatePortfolio(data) {
-    // populating the header here
-    document.querySelector('.header-text h1').innerHTML = `Hi, I'am <span>${data.name}</span>`;
+    document.querySelector('.header-text h1').innerHTML = `Hi, I'm <span>${data.name}</span>`;
     document.querySelector('.header-text p').innerHTML = data.title;
-
-    // Populate About section
     document.querySelector('.about-col-2 p').textContent = data.bio;
 
-    // // Populating skills
-    // const skillsList = document.getElementById('skills').querySelector('ul');
-    // skillsList.innerHTML = `
-    //     <li><span>Hardskills</span><br> ${data.skills.hardskills.join('<br>')}</li>
-    //     <li><span>Softskills</span><br> ${data.skills.softskills.join('<br>')}</li>
-    // `;
-    // // Populate Experience
-    // const experienceList = document.getElementById('experience').querySelector('ul');
-    // experienceList.innerHTML = data.experience.map(exp => `<li><span>${exp.role}</span><br>${exp.company}</li>`).join('');
-
-    // // Populate Education
-    // const educationList = document.getElementById('education').querySelector('ul');
-    // educationList.innerHTML = data.education.map(edu => `<li><span>${edu.year}</span><br>${edu.degree}<br>${edu.institution}</li>`).join('');
-
-    // Populate Projects
-    const projectsSection = document.getElementById('projects').querySelector('.container');
+    const projectsSection = document.getElementById('projects-container');
     data.projects.forEach(project => {
         const projectHTML = `
         <div class="project">
@@ -319,11 +209,15 @@ function populatePortfolio(data) {
                 <a href="${project.link}" target="_blank" class="btn">Learn More</a>
             </div>
             <div class="project-media">
-                <img src="images/p1.jpeg" alt="Project Image">
-                <video class="active" controls>
-                    <source src="https://www.youtube.com/93KSNyOe7zo" type="video/mp4">
+                <img src="images/${project.image}" alt="Project Image" class="active">
+                <video controls>
+                    <source src="${project.video}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div class="media-controls">
+                    <span class="dot" onclick="showMedia(this, 'image')">Image</span>
+                    <span class="dot" onclick="showMedia(this, 'video')">Video</span>
+                </div>
             </div>
         </div>`;
         projectsSection.insertAdjacentHTML('beforeend', projectHTML);
