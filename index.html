@@ -13,9 +13,7 @@
         <canvas id="canvas"></canvas>
         <div class="container">
             <nav>
-                <div class="menu-toggle" id="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
+            
                 <ul id="nav-list">
                     <li><a href="#header" id="home-link">Home</a></li>
                     <li><a href="#about" id="about-link">About</a></li>
@@ -49,36 +47,39 @@
                     </div>
                     <div class="about-col-2">
                         <h2 class="sub-title section-title">About Me</h2>
-                        <p id="bio"></p>
+                        <p id="bio">
+                            <div class="tab-titles">
+                                <p class="tab-links active-link" onclick="openTab('skills', event)">Skills</p>
+                                <p class="tab-links" onclick="openTab('experience', event)">Experience</p>
+                                <p class="tab-links" onclick="openTab('education', event)">Education</p>
+                            </div>
+                            <div class="tab-contents active-tab" id="skills">
+                                <ul>
+                                    <li><span>Hardskills</span><br>C++ <br>Python <br>Javascript <br>Backend Development</li>
+                                    <li><span>Softskills</span><br>Teamwork <br>Collaboration <br>Research</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tab-contents" id="experience">
+                                <ul>
+                                    <li><span>SWE Fellow</span><br>Headstarter AI</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tab-contents" id="education">
+                                <ul>
+                                    <li><span>2022 - current</span><br>BSCS<br>Information Technology University</li>
+                                </ul>
+                            </div>
+                            
+                        </p>
                     </div>
                     
                         <p id="bio">
 
                         <!-- About Section -->
-<div class="tab-titles">
-    <p class="tab-links active-link" onclick="openTab('skills', event)">Skills</p>
-    <p class="tab-links" onclick="openTab('experience', event)">Experience</p>
-    <p class="tab-links" onclick="openTab('education', event)">Education</p>
-</div>
 
-<div class="tab-contents active-tab" id="skills">
-    <ul>
-        <li><span>Hardskills</span><br>C++ <br>Python <br>Javascript <br>Backend Development</li>
-        <li><span>Softskills</span><br>Teamwork <br>Collaboration <br>Research</li>
-    </ul>
-</div>
 
-<div class="tab-contents" id="experience">
-    <ul>
-        <li><span>SWE Fellow</span><br>Headstarter AI</li>
-    </ul>
-</div>
-
-<div class="tab-contents" id="education">
-    <ul>
-        <li><span>2022 - current</span><br>BSCS<br>Information Technology University</li>
-    </ul>
-</div>
 
                         
                     </div>
