@@ -30,29 +30,28 @@ const languageData = {
 
 window.onload = function() {
     console.log("Script loaded and DOM is ready!");
-    populatePortfolio(portfolioData);
-    setLanguage('en');
+    var canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext('2d');
 
-    // Setup the canvas animation
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext('2d');
-    
     function setupCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
-    setupCanvas();
+    setupCanvas(); 
 
-    var stars = [], FPS = 60, starCount = 100, mouse = { x: 0, y: 0 };
+    var stars = [],
+        FPS = 60,
+        numberOfStars = 180,
+        mouse = { x: 0, y: 0 };
 
-    for (var i = 0; i < starCount; i++) {
+    for (var i = 0; i < numberOfStars; i++) {
         stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 1 + 1,
-            vx: Math.floor(Math.random() * 50) - 25,
-            vy: Math.floor(Math.random() * 50) - 25
+            radius: Math.random() * 2 + 1,
+            vx: Math.floor(Math.random() * 20) - 10,
+            vy: Math.floor(Math.random() * 20) - 10
         });
     }
 
@@ -60,61 +59,57 @@ window.onload = function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.globalCompositeOperation = "lighter";
 
-        stars.forEach(s => {
-            ctx.fillStyle = "#fff";
+        for (var i = 0; i < stars.length; i++) {
+            var s = stars[i];
+            ctx.fillStyle = "rgba(21, 0, 255, 0.8)";
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
             ctx.fill();
-            ctx.stroke();
-        });
+        }
 
         ctx.beginPath();
-        stars.forEach(starI => {
+        for (var i = 0; i < stars.length; i++) {
+            var starI = stars[i];
             ctx.moveTo(starI.x, starI.y);
+
             if (distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
-            stars.forEach(starII => {
-                if (distance(starI, starII) < 150) {
+
+            for (var j = 0; j < stars.length; j++) {
+                var starII = stars[j];
+                if (distance(starI, starII) < 120) {
                     ctx.lineTo(starII.x, starII.y);
                 }
-            });
-        });
-        ctx.lineWidth = 0.05;
-        ctx.strokeStyle = 'white';
-        ctx.stroke();
+            }
+        }
 
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.arc(mouse.x, mouse.y, 5, 0, 2 * Math.PI);
-        ctx.fill();
+        ctx.lineWidth = 0.1;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.stroke();
     }
 
     function distance(point1, point2) {
-        var xs = point2.x - point1.x;
-        var ys = point2.y - point1.y;
+        var xs = point2.x - point1.x,
+            ys = point2.y - point1.y;
         return Math.sqrt(xs * xs + ys * ys);
     }
 
     function update() {
-        stars.forEach(s => {
+        for (var i = 0; i < stars.length; i++) {
+            var s = stars[i];
             s.x += s.vx / FPS;
             s.y += s.vy / FPS;
 
             if (s.x < 0 || s.x > canvas.width) s.vx = -s.vx;
             if (s.y < 0 || s.y > canvas.height) s.vy = -s.vy;
-        });
+        }
     }
 
     canvas.addEventListener('mousemove', function(e) {
-        var rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
     });
 
-    canvas.addEventListener('touchmove', function(e) {
-        var touch = e.touches[0];
-        mouse.x = touch.clientX;
-        mouse.y = touch.clientY;
-    });
+    window.addEventListener('resize', setupCanvas); // Handle resizing
 
     function tick() {
         draw();
@@ -122,14 +117,46 @@ window.onload = function() {
         requestAnimationFrame(tick);
     }
 
-    window.addEventListener('resize', function() {
-        setupCanvas();  // Redraw the canvas when the size changes
-    });
-
     tick();
 };
 
-// Back to Top Button functionality
+const portfolioData = {
+    name: "Abdullah Musharaf",
+    title: "Software Developer",
+    bio: "I am a junior computer science student...",
+    certifications: [
+        { title: "Certification 1", img: "cert1.jpg" },
+        { title: "Certification 2", img: "cert2.jpg" }
+    ],
+    socialLinks: [
+        { name: "LinkedIn", link: "https://linkedin.com" },
+        { name: "GitHub", link: "https://github.com" }
+    ]
+};
+
+function populatePortfolio(data) {
+    document.querySelector('.header-text h1').innerHTML = `Hi, I'm <span>${data.name}</span>`;
+    document.querySelector('.header-text p').innerHTML = data.title;
+    document.querySelector('.about-col-2 p').textContent = data.bio;
+
+    const projectsSection = document.getElementById('projects-container');
+    data.projects.forEach(project => {
+        const projectHTML = `
+        <div class="project">
+            <div class="project-text">
+                <h2>${project.title}</h2>
+                <p>${project.description}</p>
+                <a href="${project.link}" target="_blank" class="btn">Learn More</a>
+            </div>
+            <div class="project-media">
+                <img src="images/${project.image}" alt="Project Image">
+            </div>
+        </div>`;
+        projectsSection.insertAdjacentHTML('beforeend', projectHTML);
+    });
+}
+
+
 window.onscroll = function() {
     let backToTop = document.getElementById("back-to-top");
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -194,42 +221,3 @@ function openTab(tabName, event) {
     document.getElementById(tabName).classList.add('active-tab');
 }
 
-function populatePortfolio(data) {
-    document.querySelector('.header-text h1').innerHTML = `Hi, I'm <span>${data.name}</span>`;
-    document.querySelector('.header-text p').innerHTML = data.title;
-    document.querySelector('.about-col-2 p').textContent = data.bio;
-
-    const projectsSection = document.getElementById('projects-container');
-    data.projects.forEach(project => {
-        const projectHTML = `
-        <div class="project">
-            <div class="project-text">
-                <h2>${project.title}</h2>
-                <p>${project.description}</p>
-                <a href="${project.link}" target="_blank" class="btn">Learn More</a>
-            </div>
-            <div class="project-media">
-                <img src="images/${project.image}" alt="Project Image" class="active">
-                <video controls>
-                    <source src="${project.video}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="media-controls">
-                    <span class="dot" onclick="showMedia(this, 'image')">Image</span>
-                    <span class="dot" onclick="showMedia(this, 'video')">Video</span>
-                </div>
-            </div>
-        </div>`;
-        projectsSection.insertAdjacentHTML('beforeend', projectHTML);
-    });
-
-    const certTabs = document.querySelector('.cert-tabs');
-    const certContents = document.querySelectorAll('.cert-content');
-    data.certifications.forEach((cert, index) => {
-        certTabs.innerHTML += `<button class="tab-link ${index === 0 ? 'active' : ''}" onclick="openCertification(event, 'cert${index+1}')">${cert.title}</button>`;
-        certContents[index].querySelector('img').src = cert.img;
-    });
-
-    const footerIcons = document.querySelector('#footer .icons');
-    footerIcons.innerHTML = data.socialLinks.map(link => `<li><a href="${link.link}" target="_blank" class="fab fa-${link.name.toLowerCase()}"></a></li>`).join('');
-}
