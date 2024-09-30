@@ -22,6 +22,9 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .container {
@@ -508,6 +511,9 @@ nav ul li a:hover {
     }
 }
 @media (max-width: 768px) {
+
+
+
     nav ul {
         flex-direction: column;
         text-align: center;
@@ -549,6 +555,15 @@ nav ul li a:hover {
     }
     .cert-item {
         width: 90%; 
+    }
+    #canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1; 
+        background-color: transparent;
     }
 }
 #canvas {
