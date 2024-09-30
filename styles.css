@@ -592,7 +592,8 @@ nav ul li a:hover {
     font-size: 18px;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    display: inline-block; 
+    display: flex;
+    justify-content: center; 
 }
 
 .connect-btn:hover {
