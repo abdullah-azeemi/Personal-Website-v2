@@ -855,3 +855,52 @@ nav ul li a:hover {
         height: auto;           /* Auto adjust height */
     }
 }
+/* For larger screens, keep the name on one line */
+@media (min-width: 491px) {
+    .header-text #name {
+        white-space: nowrap; /* Ensure the text stays on one line */
+    }
+}
+
+/* For smaller screens (max-width 490px), break the name into two lines */
+@media (max-width: 490px) {
+    /* Make the container a flexbox and center align content */
+    .header-text {
+        display: flex;
+        flex-direction: column; /* Stack the elements vertically */
+        align-items: flex-start; /* Align the text to the left */
+        justify-content: center; /* Vertically center the text */
+        height: 100vh;           /* Take full screen height */
+    }
+
+    .header-text h1 {
+        font-size: 30px;         /* Adjust font size for mobile */
+        line-height: 0.8;        /* Adjust line height */
+        text-align: center;        /* Align the text to the left */
+    }
+
+    .header-text #name {
+        display: inline-block;    /* Ensure it's treated as a block */
+        text-align: left;         /* Align text to the left */
+        visibility: hidden;       /* Hide the original text */
+    }
+
+    /* Insert a line break between Abdullah and Musharaf */
+    .header-text #name::before {
+        content: 'Abdullah';      /* Insert Abdullah */
+        display: block;           /* Display Abdullah on a new line */
+        font-size: 45px;
+    }
+
+    .header-text #name::after {
+        content: 'Musharaf';      /* Insert Musharaf after */
+        display: block;           /* Display Musharaf on the next line */
+        font-size: 45px;
+    }
+
+    /* Make the pseudo-elements visible */
+    .header-text #name::before, .header-text #name::after {
+        visibility: visible;
+        text-align: center;         /* Align the text to the left */
+    }
+}
