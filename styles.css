@@ -861,10 +861,8 @@ nav ul li a:hover {
         white-space: nowrap; /* Ensure the text stays on one line */
     }
 }
-
-/* For smaller screens (max-width 490px), break the name into two lines */
+/* For mobile (max-width 490px), break the name into two lines */
 @media (max-width: 490px) {
-    /* Make the container a flexbox and center align content */
     .header-text {
         display: flex;
         flex-direction: column; /* Stack the elements vertically */
@@ -875,13 +873,15 @@ nav ul li a:hover {
 
     .header-text h1 {
         font-size: 30px;         /* Adjust font size for mobile */
-        line-height: 0.8;        /* Adjust line height */
-        text-align: center;        /* Align the text to the left */
+        line-height: 1.2;        /* Decrease line height to reduce space */
+        text-align: left;        /* Align the text to the left */
+        margin-bottom: 5px;      /* Reduce bottom margin to tighten space */
     }
 
     .header-text #name {
         display: inline-block;    /* Ensure it's treated as a block */
         text-align: left;         /* Align text to the left */
+        margin-top: 0px;          /* Remove any margin at the top */
         visibility: hidden;       /* Hide the original text */
     }
 
@@ -889,18 +889,18 @@ nav ul li a:hover {
     .header-text #name::before {
         content: 'Abdullah';      /* Insert Abdullah */
         display: block;           /* Display Abdullah on a new line */
-        font-size: 40px;
     }
 
     .header-text #name::after {
         content: 'Musharaf';      /* Insert Musharaf after */
         display: block;           /* Display Musharaf on the next line */
-        font-size: 40px;
     }
 
-    /* Make the pseudo-elements visible */
+    /* Adjust margins and alignment of pseudo-elements */
     .header-text #name::before, .header-text #name::after {
         visibility: visible;
-        text-align: center;         /* Align the text to the left */
+        text-align:justify;         /* Align the text to the left */
+        margin-top: 0;            /* Ensure no extra margin is added */
+        line-height: 1.2;         /* Adjust line height to reduce space */
     }
 }
