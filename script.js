@@ -134,6 +134,7 @@ const portfolioData = {
     ]
 };
 
+
 function populatePortfolio(data) {
     document.querySelector('.header-text h1').innerHTML = `Hi, I'm <span>${data.name}</span>`;
     document.querySelector('.header-text p').innerHTML = data.title;

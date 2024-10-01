@@ -26,11 +26,22 @@ body {
     margin: 0;
     width: 100%;
 }
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+}
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 0 10px; /* Reduce padding on smaller screens */
+    }
 }
 
 /* Header styles */
@@ -51,7 +62,19 @@ canvas {
     height: 100vh;
     z-index: -1; 
     background: #232323; 
-  }
+}
+@media (max-width: 768px) {
+    #header {
+        height: auto; /* Let it adjust height based on content */
+        min-height: 100vh; /* Ensure minimum height is set */
+    }
+
+    canvas {
+        width: 100vw; /* Use 100% of the viewport width */
+        height: 100vh; /* Ensure canvas covers full screen */
+    }
+}
+
   
 
 nav {
@@ -104,6 +127,15 @@ nav ul li a:hover {
     font-size: 24px;
     margin-bottom: 30px;
 }
+@media (max-width: 768px) {
+    .header-text h1 {
+        font-size: 40px; 
+    }
+
+    .header-text p {
+        font-size: 18px; /* Reduce font size for paragraphs */
+    }
+}
 
 /* About section styles */
 #about {
@@ -119,6 +151,13 @@ nav ul li a:hover {
 .about-col-1, .about-col-2 {
     flex-basis: 45%;
 }
+@media (max-width: 768px) {
+    .about-col-1, .about-col-2 {
+        flex-basis: 100%;
+        margin-bottom: 20px; /* Add spacing between columns */
+    }
+}
+
 
 .about-col-1 img {
     width: 100%;
@@ -208,6 +247,17 @@ nav ul li a:hover {
 .project:nth-child(even) {
     flex-direction: row-reverse;
 }
+@media (max-width: 768px) {
+    .project {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project:nth-child(even) {
+        flex-direction: column;
+    }
+}
+
 
 .project-text, .project-media {
     flex-basis: 50%;
@@ -512,12 +562,14 @@ nav ul li a:hover {
 }
 @media (max-width: 768px) {
 
-
-
     nav ul {
-        flex-direction: column;
+        flex-direction: row;
         text-align: center;
         padding-top: 60px;
+        
+    }
+    .certA{
+        display: none;
     }
     .header-text h1 {
         font-size: 40px;  
@@ -669,4 +721,137 @@ nav ul li a:hover {
 
 .embed-container iframe:first-child {
     height: 620px;
+}
+@media (max-width: 490px) {
+    .container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    #header, canvas {
+        width: 100vw;  /* Full viewport width */
+        height: auto;  /* Allow dynamic height */
+        min-height: 100vh; /* Ensure full screen height */
+    }
+
+    .row {
+        flex-direction: column;  /* Stack elements vertically */
+    }
+
+    .social-media-feed {
+        display: flex;
+        flex-direction: column;  /* Stack feed items */
+        width: 100%;  /* Ensure full width */
+    }
+
+    .social-media-feed .item {
+        flex-basis: 100%;  /* Make each item span full width */
+        margin-bottom: 20px;  /* Add space between items */
+    }
+
+    .project {
+        flex-direction: column;  /* Stack project items */
+        width: 100%;  /* Ensure full width */
+    }
+
+    .header-text h1 {
+        font-size: 40px;  /* Adjust font size for smaller screens */
+    }
+
+    .header-text p {
+        font-size: 18px;
+    }
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+    
+    .container, .row, #header, canvas {
+        width: 100%;
+        max-width: 100vw; /* Use full viewport width */
+    }
+    
+    #header {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .about-col-1, .about-col-2, .project-text, .project-media {
+        flex-basis: 100%;
+        width: 100%; /* Ensure full width */
+    }
+    
+    @media (max-width: 490px) {
+        .container, .row, #header, canvas {
+            width: 100vw;  /* Ensure full screen width on mobile */
+        }
+    
+        .header-text h1 {
+            font-size: 30px;  /* Adjust for mobile */
+        }
+    
+        .header-text p {
+            font-size: 18px;
+        }
+    
+        .row, .project, .social-media-feed {
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center;
+            width: 100%;  /* Ensure full width */
+        }
+    }
+    
+}
+@media (max-width: 768px) {
+    .cert-slider {
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Ensure full width */
+    }
+
+    .social-media-feed, .embedded-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Ensure full width */
+    }
+
+    .cert-item, .social-media-feed .item .embedded-links{
+        flex-basis: 100%; /* Make each item span full width */
+        margin-bottom: 20px; /* Add spacing between items */
+    }
+}
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .embed-container {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;    /* Center align the embedded iframes */
+        gap: 20px;              /* Add space between the iframes */
+    }
+
+    .embed-container iframe {
+        width: 100%;            /* Ensure full width for mobile */
+        height: auto;           /* Auto adjust height */
+    }
 }
