@@ -889,13 +889,13 @@ nav ul li a:hover {
     .header-text #name::before {
         content: 'Abdullah';      /* Insert Abdullah */
         display: block;           /* Display Abdullah on a new line */
-        font-size: 45px;
+        font-size: 40px;
     }
 
     .header-text #name::after {
         content: 'Musharaf';      /* Insert Musharaf after */
         display: block;           /* Display Musharaf on the next line */
-        font-size: 45px;
+        font-size: 40px;
     }
 
     /* Make the pseudo-elements visible */
